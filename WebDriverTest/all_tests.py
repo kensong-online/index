@@ -9,7 +9,10 @@ import unittest
 import os,time
 
 
-listaa = "F:\\pages\\index\\WebDriverTest"
+# listaa = os.getcwd()
+cwdDir = os.path.dirname( os.path.abspath(__file__))
+print(cwdDir)
+listaa = os.path.join(cwdDir, "HtmlRunnerTest")
 def createsuite1():
     testunit=unittest.TestSuite()
     discover=unittest.defaultTestLoader.discover(listaa,pattern='start_*.py',top_level_dir=None)
@@ -20,7 +23,11 @@ def createsuite1():
     return testunit
 
 now = time.strftime("%Y-%m-%d %H_%M_%S",time.localtime())
-filename="F:\\pages\\index\\report\\"+now+"_result.html"
+filename= os.path.join(cwdDir, "../../report/"+now+"_result.html") 
+dir = os.path.dirname(filename)
+if not os.path.exists(dir):
+    os.makedirs(dir)
+
 fp=open(filename,'wb')
 
 runner=HTMLTestRunnerCN.HTMLTestReportCN(
